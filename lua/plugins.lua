@@ -114,28 +114,9 @@ packer.startup {
       use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
     end
 
-    use {
-      "nvim-telescope/telescope.nvim",
-      cmd = "Telescope",
-      requires = { { "nvim-lua/plenary.nvim" } },
-    }
-    -- search emoji and other symbols
-    use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
-
     -- A list of colorscheme plugin you may want to try. Find what suits you.
-    use { "navarasu/onedark.nvim", opt = true }
     use { "sainnhe/edge", opt = true }
-    use { "sainnhe/sonokai", opt = true }
-    use { "sainnhe/gruvbox-material", opt = true }
-    use { "shaunsingh/nord.nvim", opt = true }
-    use { "sainnhe/everforest", opt = true }
     use { "EdenEast/nightfox.nvim", opt = true }
-    use { "rebelot/kanagawa.nvim", opt = true }
-    use { "catppuccin/nvim", as = "catppuccin", opt = true }
-    use({ "rose-pine/neovim", as = 'rose-pine', opt = true })
-    use { "olimorris/onedarkpro.nvim", opt = true }
-    use { "tanvirtin/monokai.nvim", opt = true }
-    use { "marko-cerovac/material.nvim", opt = true }
 
     use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
 
@@ -296,13 +277,6 @@ packer.startup {
     -- Only use these plugin on Windows and Mac and when LaTeX is installed
     if utils.executable("latex") then
       use { "lervag/vimtex", ft = { "tex" } }
-    end
-
-    -- Since tmux is only available on Linux and Mac, we only enable these plugins
-    -- for Linux and Mac
-    if utils.executable("tmux") then
-      -- .tmux.conf syntax highlighting and setting check
-      use { "tmux-plugins/vim-tmux", ft = { "tmux" } }
     end
 
     -- Modern matchit implementation

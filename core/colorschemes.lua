@@ -7,21 +7,9 @@ local M = {}
 -- Colorscheme to its directory name mapping, because colorscheme repo name is not necessarily
 -- the same as the colorscheme name itself.
 M.colorscheme2dir = {
-  onedark = "onedark.nvim",
   edge = "edge",
-  sonokai = "sonokai",
-  nord = "nord.nvim",
-  everforest = "everforest",
   nightfox = "nightfox.nvim",
-  kanagawa = "kanagawa.nvim",
-  catppuccin = "catppuccin",
-  rose_pine = "rose-pine",
-  material = "material.nvim",
 }
-
-M.onedark = function()
-  vim.cmd([[colorscheme onedark]])
-end
 
 M.edge = function()
   vim.g.edge_enable_italic = 1
@@ -30,53 +18,8 @@ M.edge = function()
   vim.cmd([[colorscheme edge]])
 end
 
-M.sonokai = function()
-  vim.g.sonokai_enable_italic = 1
-  vim.g.sonokai_better_performance = 1
-
-  vim.cmd([[colorscheme sonokai]])
-end
-
-M.nord = function()
-  vim.cmd([[colorscheme nord]])
-end
-
-M.doom_one = function()
-  vim.cmd([[colorscheme doom-one]])
-end
-
-M.everforest = function()
-  vim.g.everforest_enable_italic = 1
-  vim.g.everforest_better_performance = 1
-
-  vim.cmd([[colorscheme everforest]])
-end
-
 M.nightfox = function()
-  vim.cmd([[colorscheme nordfox]])
-end
-
-M.kanagawa = function()
-  vim.cmd([[colorscheme kanagawa]])
-end
-
-M.catppuccin = function()
-  -- available option: latte, frappe, macchiato, mocha
-  vim.g.catppuccin_flavour = "frappe"
-
-  require("catppuccin").setup()
-
-  vim.cmd([[colorscheme catppuccin]])
-end
-
-M.rose_pine = function()
-  require('rose-pine').setup({
-    --- @usage 'main' | 'moon'
-    dark_variant = 'moon',
-  })
-
-  -- set colorscheme after options
-  vim.cmd('colorscheme rose-pine')
+  vim.cmd([[colorscheme duskfox]])
 end
 
 --- Use a random colorscheme from the pre-defined list of colorschemes.
