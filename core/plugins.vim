@@ -85,24 +85,11 @@ let g:Lf_ShortcutB = ''
 " set up working directory for git repository
 let g:Lf_WorkingDirectoryMode = 'a'
 
-" Search files in popup window
-nnoremap <silent> <leader>ff :<C-U>Leaderf file --popup<CR>
-
-" Grep project files in popup window
-nnoremap <silent> <leader>fg :<C-U>Leaderf rg --no-messages --popup<CR>
-
-" Search vim help files
-nnoremap <silent> <leader>fh :<C-U>Leaderf help --popup<CR>
-
-" Search tags in current buffer
-nnoremap <silent> <leader>ft :<C-U>Leaderf bufTag --popup<CR>
-
-" Switch buffers
-nnoremap <silent> <leader>fb :<C-U>Leaderf buffer --popup<CR>
-
-" Search recent files
-nnoremap <silent> <leader>fr :<C-U>Leaderf mru --popup --absolute-path<CR>
-
+nnoremap <silent> <leader>ff :<C-U>Telescope find_files<CR>
+nnoremap <silent> <leader>fb :<C-U>Telescope buffers<CR>
+nnoremap <silent> <leader>fh :<C-U>Telescope help_tags<CR>
+nnoremap <silent> <leader>fr :<C-U>Telescope oldfiles<CR>
+nnoremap <silent> <leader>fg :<C-U>Telescope live_grep<CR>
 let g:Lf_PopupColorscheme = 'gruvbox_material'
 
 " Change keybinding in LeaderF prompt mode, use ctrl-n and ctrl-p to navigate

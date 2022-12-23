@@ -25,14 +25,14 @@ vim.g.loaded_ruby_provider = 0  -- Disable ruby provider
 vim.g.loaded_node_provider = 0  -- Disable node provider
 vim.g.did_install_default_menus = 1  -- do not load menu
 
-if utils.executable('python3') then
+if utils.executable('python') then
   if vim.g.is_win then
-    vim.g.python3_host_prog = fn.substitute(fn.exepath("python3"), ".exe$", '', 'g')
+    vim.g.python3_host_prog = fn.substitute(fn.exepath("python"), ".exe$", '', 'g')
   else
-    vim.g.python3_host_prog = fn.exepath("python3")
+    vim.g.python3_host_prog = fn.exepath("python")
   end
 else
-  api.nvim_err_writeln("Python3 executable not found! You must install Python3 and set its PATH correctly!")
+  api.nvim_err_writeln("Python executable not found! You must install Python and set its PATH correctly!")
   return
 end
 

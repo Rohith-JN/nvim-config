@@ -115,7 +115,6 @@ packer.startup {
     end
 
     -- A list of colorscheme plugin you may want to try. Find what suits you.
-    use { "sainnhe/edge", opt = true }
     use { "EdenEast/nightfox.nvim", opt = true }
 
     use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
@@ -135,6 +134,12 @@ packer.startup {
     use { "glepnir/dashboard-nvim", event = "VimEnter",
       cond = firenvim_not_active,
       config = [[require('config.dashboard-nvim')]]
+    }
+
+    -- telescope
+    use {'nvim-telescope/telescope.nvim',
+      tag = '0.1.0',
+      requires = { {'nvim-lua/plenary.nvim'} }
     }
 
     use {
@@ -258,10 +263,6 @@ packer.startup {
 
     use { "folke/zen-mode.nvim", cmd = "ZenMode", config = [[require('config.zen-mode')]] }
 
-    if vim.g.is_mac then
-      use { "rhysd/vim-grammarous", ft = { "markdown" } }
-    end
-
     use { "chrisbra/unicode.vim", event = "VimEnter" }
 
     -- Additional powerful text object for vim, this plugin should be studied
@@ -286,8 +287,6 @@ packer.startup {
 
     -- Asynchronous command execution
     use { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } }
-
-    use { "cespare/vim-toml", ft = { "toml" }, branch = "main" }
 
     -- Edit text area in browser using nvim
     if vim.g.is_win or vim.g.is_mac then
