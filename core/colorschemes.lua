@@ -7,16 +7,8 @@ local M = {}
 -- Colorscheme to its directory name mapping, because colorscheme repo name is not necessarily
 -- the same as the colorscheme name itself.
 M.colorscheme2dir = {
-  edge = "edge",
   nightfox = "nightfox.nvim",
 }
-
-M.edge = function()
-  vim.g.edge_enable_italic = 1
-  vim.g.edge_better_performance = 1
-
-  vim.cmd([[colorscheme edge]])
-end
 
 M.nightfox = function()
   vim.cmd([[colorscheme duskfox]])
