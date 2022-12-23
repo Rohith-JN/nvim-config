@@ -20,37 +20,26 @@ dashboard.custom_header = {
 
 dashboard.custom_center = {
   {
-    icon = "  ",
     desc = "Find  File                              ",
-    action = "Leaderf file --popup",
+    action = "Telescope find_files",
     shortcut = "<Leader> f f",
   },
   {
-    icon = "  ",
     desc = "Recently opened files                   ",
-    action = "Leaderf mru --popup",
+    action = "Telescope oldfiles",
     shortcut = "<Leader> f r",
   },
   {
-    icon = "  ",
-    desc = "Project grep                            ",
-    action = "Leaderf rg --popup",
-    shortcut = "<Leader> f g",
-  },
-  {
-    icon = "  ",
     desc = "Open Nvim config                        ",
     action = "tabnew $MYVIMRC | tcd %:p:h",
     shortcut = "<Leader> e v",
   },
   {
-    icon = "  ",
     desc = "New file                                ",
     action = "enew",
     shortcut = "e           ",
   },
   {
-    icon = "  ",
     desc = "Quit Nvim                               ",
     -- desc = "Quit Nvim                               ",
     action = "qa",
