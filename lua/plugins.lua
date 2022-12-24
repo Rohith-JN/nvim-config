@@ -61,15 +61,6 @@ packer.startup {
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
     use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
 
-    if vim.g.is_mac then
-      use {
-        "nvim-treesitter/nvim-treesitter",
-        event = "BufEnter",
-        run = ":TSUpdate",
-        config = [[require('config.treesitter')]],
-      }
-    end
-
     -- Python indent (follows the PEP8 style)
     use { "Vimjas/vim-python-pep8-indent", ft = { "python" } }
 
@@ -128,6 +119,7 @@ packer.startup {
     -- telescope
     use {'nvim-telescope/telescope.nvim',
       tag = '0.1.0',
+      config = [[require('config.telescope')]],
       requires = { {'nvim-lua/plenary.nvim'} }
     }
 
@@ -190,11 +182,7 @@ packer.startup {
 
     use { "nvim-zh/better-escape.vim", event = { "InsertEnter" } }
 
-    if vim.g.is_mac then
-      use { "lyokha/vim-xkbswitch", event = { "InsertEnter" } }
-    elseif vim.g.is_win then
-      use { "Neur1n/neuims", event = { "InsertEnter" } }
-    end
+    use { "Neur1n/neuims", event = { "InsertEnter" } }
 
     -- Auto format tools
     use { "sbdchd/neoformat", cmd = { "Neoformat" } }
@@ -231,14 +219,12 @@ packer.startup {
     -- Vim tabular plugin for manipulate tabular, required by markdown plugins
     use { "godlygeek/tabular", cmd = { "Tabularize" } }
 
-    -- Markdown previewing (only for Mac and Windows)
-    if vim.g.is_win or vim.g.is_mac then
-      use {
+    -- Markdown previewing
+    use {
         "iamcco/markdown-preview.nvim",
         run = "cd app && npm install",
         ft = { "markdown" },
-      }
-    end
+    }
 
     use { "folke/zen-mode.nvim", cmd = "ZenMode", config = [[require('config.zen-mode')]] }
 
@@ -254,7 +240,6 @@ packer.startup {
     -- Add indent object for vim (useful for languages like Python)
     use { "michaeljsmith/vim-indent-object", event = "VimEnter" }
 
-    -- Only use these plugin on Windows and Mac and when LaTeX is installed
     if utils.executable("latex") then
       use { "lervag/vimtex", ft = { "tex" } }
     end
@@ -268,28 +253,20 @@ packer.startup {
     use { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } }
 
     -- Edit text area in browser using nvim
-    if vim.g.is_win or vim.g.is_mac then
-      use {
+    use {
         "glacambre/firenvim",
         run = function()
           fn["firenvim#install"](0)
         end,
         opt = true,
         setup = [[vim.cmd('packadd firenvim')]],
-      }
-    end
+    }
 
     -- Debugger plugin
-    if vim.g.is_win or vim.g.is_linux then
-      use { "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] }
-    end
+    use { "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] }
 
     -- Session management plugin
     use { "tpope/vim-obsession", cmd = "Obsession" }
-
-    if vim.g.is_linux then
-      use { "ojroques/vim-oscyank", cmd = { "OSCYank", "OSCYankReg" } }
-    end
 
     -- The missing auto-completion for cmdline!
     use { "gelguy/wilder.nvim", opt = true, setup = [[vim.cmd('packadd wilder.nvim')]] }
@@ -318,12 +295,12 @@ packer.startup {
     use { "ii14/emmylua-nvim", ft = "lua" }
 
     use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] }
-  end,
-  config = {
-    max_jobs = 16,
-    compile_path = packer_util.join_paths(fn.stdpath("data"), "site", "lua", "packer_compiled.lua"),
-  },
-}
+        end,
+        config = {
+        max_jobs = 16,
+        compile_path = packer_util.join_paths(fn.stdpath("data"), "site", "lua", "packer_compiled.lua"),
+       },
+    }
 
 -- For fresh install, we need to install plugins. Otherwise, we just need to require `packer_compiled.lua`.
 if fresh_install then
