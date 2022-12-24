@@ -31,10 +31,10 @@ let &backupskip=&wildignore
 set backup  " create backup for files
 set backupcopy=yes  " copy the original file to backupdir and overwrite it
 
-set tabstop=4   
-set softtabstop=4 
-set shiftwidth=4    
-set expandtab       
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 
 set matchpairs+=<:>,「:」,『:』,【:】,“:”,‘:’,《:》
 

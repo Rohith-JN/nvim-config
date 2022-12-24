@@ -16,32 +16,8 @@ call utils#Cabbrev('ps', 'PackerSync')
 "                      configurations for vim script plugin                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""UltiSnips settings"""""""""""""""""""
-" Trigger configuration. Do not use <tab> if you use YouCompleteMe
-let g:UltiSnipsExpandTrigger='<c-j>'
-
-" Do not look for SnipMate snippets
-let g:UltiSnipsEnableSnipMate = 0
-
-" Shortcut to jump forward and backward in tabstop positions
-let g:UltiSnipsJumpForwardTrigger='<c-j>'
-let g:UltiSnipsJumpBackwardTrigger='<c-k>'
-
-" Configuration for custom snippets directory, see
-" https://jdhao.github.io/2019/04/17/neovim_snippet_s1/ for details.
-let g:UltiSnipsSnippetDirectories=['UltiSnips', 'my_snippets']
-
-"""""""""""""""""""""""""" vlime settings """"""""""""""""""""""""""""""""
-command! -nargs=0 StartVlime call jobstart(printf("sbcl --load %s/vlime/lisp/start-vlime.lisp", g:package_home))
-
-"""""""""""""""""""""""""""""LeaderF settings"""""""""""""""""""""
-" Do not use cache file
-let g:Lf_UseCache = 0
-" Refresh each time we call leaderf
-let g:Lf_UseMemoryCache = 0
-
-" Ignore certain files and directories when searching files
-let g:Lf_WildIgnore = {
+"""""""""""""""""""""""""""""Telescope-Settings"""""""""""""""""""""
+let g:Telescope_WildIgnore = {
   \ 'dir': ['.git', '__pycache__', '.DS_Store'],
   \ 'file': ['*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png',
   \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz',
@@ -50,51 +26,11 @@ let g:Lf_WildIgnore = {
   \ '*.mp3', '*.aac']
   \}
 
-" Do not show fancy icons for Linux server.
-if g:is_linux
-  let g:Lf_ShowDevIcons = 0
-endif
-
-" Only fuzzy-search files names
-let g:Lf_DefaultMode = 'FullPath'
-
-" Popup window settings
-let w = float2nr(&columns * 0.8)
-if w > 140
-  let g:Lf_PopupWidth = 140
-else
-  let g:Lf_PopupWidth = w
-endif
-
-let g:Lf_PopupPosition = [0, float2nr((&columns - g:Lf_PopupWidth)/2)]
-
-" Do not use version control tool to list files under a directory since
-" submodules are not searched by default.
-let g:Lf_UseVersionControlTool = 0
-
-" Use rg as the default search tool
-let g:Lf_DefaultExternalTool = "rg"
-
-" show dot files
-let g:Lf_ShowHidden = 1
-
-" Disable default mapping
-let g:Lf_ShortcutF = ''
-let g:Lf_ShortcutB = ''
-
-" set up working directory for git repository
-let g:Lf_WorkingDirectoryMode = 'a'
-
 nnoremap <silent> <leader>ff :<C-U>Telescope find_files<CR>
 nnoremap <silent> <leader>fb :<C-U>Telescope buffers<CR>
 nnoremap <silent> <leader>fh :<C-U>Telescope help_tags<CR>
 nnoremap <silent> <leader>fr :<C-U>Telescope oldfiles<CR>
 nnoremap <silent> <leader>fg :<C-U>Telescope live_grep<CR>
-let g:Lf_PopupColorscheme = 'gruvbox_material'
-
-" Change keybinding in LeaderF prompt mode, use ctrl-n and ctrl-p to navigate
-" items.
-let g:Lf_CommandMap = {'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
 
 """"""""""""""""""""""""""""open-browser.vim settings"""""""""""""""""""
 if g:is_win || g:is_mac
@@ -291,12 +227,7 @@ endif
 
 """"""""""""""""""""""""""""""firenvim settings""""""""""""""""""""""""""""""
 if exists('g:started_by_firenvim') && g:started_by_firenvim
-  if g:is_mac
-    set guifont=Iosevka\ Nerd\ Font:h18
-  else
-    set guifont=Consolas
-  endif
-
+  set guifont=Consolas
   " general config for firenvim
   let g:firenvim_config = {
       \ 'globalSettings': {
