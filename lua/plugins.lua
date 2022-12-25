@@ -145,10 +145,7 @@ packer.startup {
 
     -- For Windows and Mac, we can open an URL in the browser. For Linux, it may
     -- not be possible since we maybe in a server which disables GUI.
-    if vim.g.is_win or vim.g.is_mac then
-      -- open URL in browser
-      use { "tyru/open-browser.vim", event = "VimEnter" }
-    end
+    use { "tyru/open-browser.vim", event = "VimEnter" }
 
     -- Only install these plugins if ctags are installed on the system
     if utils.executable("ctags") then
