@@ -36,8 +36,9 @@ else
   return
 end
 
--- Custom mapping <leader> (see `:h mapleader` for more info)
-vim.g.mapleader = ','
+-- map leader to <Space>
+vim.keymap.set("n", " ", "<Nop>", { silent = true, remap = false })
+vim.g.mapleader = " "
 
 -- Enable highlighting for lua HERE doc inside vim script
 vim.g.vimsyn_embed = 'l'
