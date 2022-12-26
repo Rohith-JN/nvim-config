@@ -122,6 +122,9 @@ packer.startup {
       config = [[require('config.telescope')]],
       requires = { {'nvim-lua/plenary.nvim'} }
     }
+    
+    -- dart debugger
+    use {'mfussenegger/nvim-dap'}
 
     use {
       "lukas-reineke/indent-blankline.nvim",
@@ -143,10 +146,6 @@ packer.startup {
       end,
     }
 
-    -- For Windows and Mac, we can open an URL in the browser. For Linux, it may
-    -- not be possible since we maybe in a server which disables GUI.
-    use { "tyru/open-browser.vim", event = "VimEnter" }
-
     -- Only install these plugins if ctags are installed on the system
     if utils.executable("ctags") then
       -- show file tags in vim window
@@ -156,11 +155,11 @@ packer.startup {
     -- Automatic insertion and deletion of a pair of characters
     use { "Raimondi/delimitMate", event = "InsertEnter" }
 
+    -- flutter-tools
+    use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim', config = [[require('config.flutter-tools')]]}
+
     -- Comment plugin
     use { "tpope/vim-commentary", event = "VimEnter" }
-
-    -- Show undo history visually
-    use { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } }
 
     -- better UI for some nvim actions
     use {'stevearc/dressing.nvim'}
@@ -210,9 +209,6 @@ packer.startup {
     -- Another markdown plugin
     use { "preservim/vim-markdown", ft = { "markdown" } }
 
-    -- Faster footnote generation
-    use { "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } }
-
     -- Vim tabular plugin for manipulate tabular, required by markdown plugins
     use { "godlygeek/tabular", cmd = { "Tabularize" } }
 
@@ -246,9 +242,6 @@ packer.startup {
 
     use { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } }
 
-    -- Asynchronous command execution
-    use { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } }
-
     -- Edit text area in browser using nvim
     use {
         "glacambre/firenvim",
@@ -265,6 +258,13 @@ packer.startup {
     -- Session management plugin
     use { "tpope/vim-obsession", cmd = "Obsession" }
 
+    -- nvim-treesitter
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        event = "BufEnter",
+        run = ":TSUpdate",
+        config = [[require('config.treesitter')]],
+      }
     -- The missing auto-completion for cmdline!
     use { "gelguy/wilder.nvim", opt = true, setup = [[vim.cmd('packadd wilder.nvim')]] }
 
@@ -278,9 +278,6 @@ packer.startup {
         end, 2000)
       end,
     }
-
-    -- show and trim trailing whitespaces
-    use { "jdhao/whitespace.nvim", event = "VimEnter" }
 
     -- file explorer
     use {
