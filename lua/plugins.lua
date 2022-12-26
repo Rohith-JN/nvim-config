@@ -123,9 +123,6 @@ packer.startup {
       requires = { {'nvim-lua/plenary.nvim'} }
     }
     
-    -- dart debugger
-    use {'mfussenegger/nvim-dap'}
-
     use {
       "lukas-reineke/indent-blankline.nvim",
       event = "VimEnter",
@@ -154,9 +151,6 @@ packer.startup {
 
     -- Automatic insertion and deletion of a pair of characters
     use { "Raimondi/delimitMate", event = "InsertEnter" }
-
-    -- flutter-tools
-    use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim', config = [[require('config.flutter-tools')]]}
 
     -- Comment plugin
     use { "tpope/vim-commentary", event = "VimEnter" }
