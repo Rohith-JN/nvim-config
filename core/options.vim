@@ -2,6 +2,11 @@ scriptencoding utf-8
 
 set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 
+set shell=powershell\ -NoLogo
+set shellcmdflag=-command
+set shellquote=\"
+set shellxquote=
+
 set pastetoggle=<F12>
 
 set splitbelow splitright

@@ -106,6 +106,9 @@ packer.startup {
       config = [[require('config.statusline')]],
     }
 
+    -- toggleterm
+    use {"akinsho/toggleterm.nvim", config = [[require('config.toggle-term')]]}
+
     use { "akinsho/bufferline.nvim", event = "VimEnter",
       cond = firenvim_not_active,
       config = [[require('config.bufferline')]] }
