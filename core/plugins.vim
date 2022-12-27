@@ -94,37 +94,13 @@ let g:vim_markdown_json_frontmatter = 1  " for JSON format
 let g:vim_markdown_toc_autofit = 1
 
 """""""""""""""""""""""""markdown-preview settings"""""""""""""""""""
-" Only setting this for suitable platforms
-if g:is_win || g:is_mac
-  " Do not close the preview tab when switching to other buffers
-  let g:mkdp_auto_close = 0
 
-  " Shortcuts to start and stop markdown previewing
-  nnoremap <silent> <M-m> :<C-U>MarkdownPreview<CR>
-  nnoremap <silent> <M-S-m> :<C-U>MarkdownPreviewStop<CR>
-endif
+" Do not close the preview tab when switching to other buffers
+let g:mkdp_auto_close = 0
 
-""""""""""""""""""""""""vim-grammarous settings""""""""""""""""""""""""""""""
-if g:is_mac
-  let g:grammarous#languagetool_cmd = 'languagetool'
-  let g:grammarous#disabled_rules = {
-      \ '*' : ['WHITESPACE_RULE', 'EN_QUOTES', 'ARROWS', 'SENTENCE_WHITESPACE',
-      \        'WORD_CONTAINS_UNDERSCORE', 'COMMA_PARENTHESIS_WHITESPACE',
-      \        'EN_UNPAIRED_BRACKETS', 'UPPERCASE_SENTENCE_START',
-      \        'ENGLISH_WORD_REPEAT_BEGINNING_RULE', 'DASH_RULE', 'PLUS_MINUS',
-      \        'PUNCTUATION_PARAGRAPH_END', 'MULTIPLICATION_SIGN', 'PRP_CHECKOUT',
-      \        'CAN_CHECKOUT', 'SOME_OF_THE', 'DOUBLE_PUNCTUATION', 'HELL',
-      \        'CURRENCY', 'POSSESSIVE_APOSTROPHE', 'ENGLISH_WORD_REPEAT_RULE',
-      \        'NON_STANDARD_WORD', 'AU', 'DATE_NEW_YEAR'],
-      \ }
-
-  augroup grammarous_map
-    autocmd!
-    autocmd FileType markdown nmap <buffer> <leader>x <Plug>(grammarous-close-info-window)
-    autocmd FileType markdown nmap <buffer> <c-n> <Plug>(grammarous-move-to-next-error)
-    autocmd FileType markdown nmap <buffer> <c-p> <Plug>(grammarous-move-to-previous-error)
-  augroup END
-endif
+" Shortcuts to start and stop markdown previewing
+nnoremap <silent> <M-m> :<C-U>MarkdownPreview<CR>
+nnoremap <silent> <M-S-m> :<C-U>MarkdownPreviewStop<CR>
 
 """"""""""""""""""""""""unicode.vim settings""""""""""""""""""""""""""""""
 nmap ga <Plug>(UnicodeGA)
@@ -166,34 +142,8 @@ if executable('latex')
         \ }
 
   " Viewer settings for different platforms
-  if g:is_win
-    let g:vimtex_view_general_viewer = 'SumatraPDF'
-    let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
-  endif
-
-  if g:is_mac
-    " let g:vimtex_view_method = "skim"
-    let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
-    let g:vimtex_view_general_options = '-r @line @pdf @tex'
-
-    augroup vimtex_mac
-      autocmd!
-      autocmd User VimtexEventCompileSuccess call UpdateSkim()
-    augroup END
-
-    " The following code is adapted from https://gist.github.com/skulumani/7ea00478c63193a832a6d3f2e661a536.
-    function! UpdateSkim() abort
-      let l:out = b:vimtex.out()
-      let l:src_file_path = expand('%:p')
-      let l:cmd = [g:vimtex_view_general_viewer, '-r']
-
-      if !empty(system('pgrep Skim'))
-        call extend(l:cmd, ['-g'])
-      endif
-
-      call jobstart(l:cmd + [line('.'), l:out, l:src_file_path])
-    endfunction
-  endif
+  let g:vimtex_view_general_viewer = 'SumatraPDF'
+  let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
 endif
 
 """"""""""""""""""""""""""""vim-matchup settings"""""""""""""""""""""""""""""
