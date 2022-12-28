@@ -11,21 +11,21 @@ vim.g.plugin_home = fn.stdpath("data") .. "/site/pack/packer"
 --- true: if this is a fresh install of packer
 --- false: if packer has been installed
 local function packer_ensure_install()
-  -- Where to install packer.nvim -- the package manager (we make it opt)
-  local packer_dir = vim.g.plugin_home .. "/opt/packer.nvim"
+	-- Where to install packer.nvim -- the package manager (we make it opt)
+	local packer_dir = vim.g.plugin_home .. "/opt/packer.nvim"
 
-  if fn.glob(packer_dir) ~= "" then
-    return false
-  end
+	if fn.glob(packer_dir) ~= "" then
+		return false
+	end
 
-  -- Auto-install packer in case it hasn't been installed.
-  vim.api.nvim_echo({ { "Installing packer.nvim", "Type" } }, true, {})
+	-- Auto-install packer in case it hasn't been installed.
+	vim.api.nvim_echo({ { "Installing packer.nvim", "Type" } }, true, {})
 
-  local packer_repo = "https://github.com/wbthomason/packer.nvim"
-  local install_cmd = string.format("!git clone --depth=1 %s %s", packer_repo, packer_dir)
-  vim.cmd(install_cmd)
+	local packer_repo = "https://github.com/wbthomason/packer.nvim"
+	local install_cmd = string.format("!git clone --depth=1 %s %s", packer_repo, packer_dir)
+	vim.cmd(install_cmd)
 
-  return true
+	return true
 end
 
 local fresh_install = packer_ensure_install()
@@ -38,282 +38,276 @@ local packer_util = require("packer.util")
 
 -- check if firenvim is active
 local firenvim_not_active = function()
-  return not vim.g.started_by_firenvim
+	return not vim.g.started_by_firenvim
 end
 
-packer.startup {
-  function(use)
-    -- it is recommended to put impatient.nvim before any other plugins
-    use { "lewis6991/impatient.nvim", config = [[require('impatient')]] }
+packer.startup({
+	function(use)
+		-- it is recommended to put impatient.nvim before any other plugins
+		use({ "lewis6991/impatient.nvim", config = [[require('impatient')]] })
 
-    use { "wbthomason/packer.nvim", opt = true }
+		use({ "wbthomason/packer.nvim", opt = true })
 
-    use { "onsails/lspkind-nvim", event = "VimEnter" }
-    -- auto-completion engine
-    use { "hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]] }
+		use({ "onsails/lspkind-nvim", event = "VimEnter" })
+		-- auto-completion engine
+		use({ "hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]] })
 
-    -- nvim-cmp completion sources
-    use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
-    use { "hrsh7th/cmp-path", after = "nvim-cmp" }
-    use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
-    use { "hrsh7th/cmp-omni", after = "nvim-cmp" }
+		-- nvim-cmp completion sources
+		use({ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" })
+		use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
+		use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
+		use({ "hrsh7th/cmp-omni", after = "nvim-cmp" })
 
-    -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
-    use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
+		-- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
+		use({ "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] })
 
-    -- Python indent (follows the PEP8 style)
-    use { "Vimjas/vim-python-pep8-indent", ft = { "python" } }
+		-- Python indent (follows the PEP8 style)
+		use({ "Vimjas/vim-python-pep8-indent", ft = { "python" } })
 
-    -- Python-related text object
-    use { "jeetsukumaran/vim-pythonsense", ft = { "python" } }
+		-- Python-related text object
+		use({ "jeetsukumaran/vim-pythonsense", ft = { "python" } })
 
-    use { "machakann/vim-swap", event = "VimEnter" }
+		use({ "machakann/vim-swap", event = "VimEnter" })
 
-    -- IDE for Lisp
-    if utils.executable("sbcl") then
-      -- use 'kovisoft/slimv'
-      use { "vlime/vlime", rtp = "vim/", ft = { "lisp" } }
-    end
+		-- IDE for Lisp
+		if utils.executable("sbcl") then
+			-- use 'kovisoft/slimv'
+			use({ "vlime/vlime", rtp = "vim/", ft = { "lisp" } })
+		end
 
-    -- Super fast buffer jump
-    use {
-      "phaazon/hop.nvim",
-      event = "VimEnter",
-      config = function()
-        vim.defer_fn(function()
-          require("config.nvim_hop")
-        end, 2000)
-      end,
-    }
+		-- Super fast buffer jump
+		use({
+			"phaazon/hop.nvim",
+			event = "VimEnter",
+			config = function()
+				vim.defer_fn(function()
+					require("config.nvim_hop")
+				end, 2000)
+			end,
+		})
 
-    -- Show match number and index for searching
-    use {
-      "kevinhwang91/nvim-hlslens",
-      branch = "main",
-      keys = { { "n", "*" }, { "n", "#" }, { "n", "n" }, { "n", "N" } },
-      config = [[require('config.hlslens')]],
-    }
+		-- Show match number and index for searching
+		use({
+			"kevinhwang91/nvim-hlslens",
+			branch = "main",
+			keys = { { "n", "*" }, { "n", "#" }, { "n", "n" }, { "n", "N" } },
+			config = [[require('config.hlslens')]],
+		})
 
-    -- A list of colorscheme plugin you may want to try. Find what suits you.
-    use { "EdenEast/nightfox.nvim", opt = true }
+		-- A list of colorscheme plugin you may want to try. Find what suits you.
+		use({ "EdenEast/nightfox.nvim", opt = true })
 
-    use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
+		use({ "kyazdani42/nvim-web-devicons", event = "VimEnter" })
 
-    use {
-      "nvim-lualine/lualine.nvim",
-      event = "VimEnter",
-      cond = firenvim_not_active,
-      config = [[require('config.statusline')]],
-    }
+		use({
+			"nvim-lualine/lualine.nvim",
+			event = "VimEnter",
+			cond = firenvim_not_active,
+			config = [[require('config.statusline')]],
+		})
 
-    -- toggleterm
-    use {"akinsho/toggleterm.nvim", config = [[require('config.toggle-term')]]}
+		-- toggleterm
+		use({ "akinsho/toggleterm.nvim", config = [[require('config.toggle-term')]] })
 
-    use { "akinsho/bufferline.nvim", event = "VimEnter",
-      cond = firenvim_not_active,
-      config = [[require('config.bufferline')]] }
+		use({
+			"akinsho/bufferline.nvim",
+			event = "VimEnter",
+			cond = firenvim_not_active,
+			config = [[require('config.bufferline')]],
+		})
 
-    -- fancy start screen
-    use { "glepnir/dashboard-nvim", event = "VimEnter",
-      cond = firenvim_not_active,
-      config = [[require('config.dashboard-nvim')]]
-    }
+		-- fancy start screen
+		use({
+			"glepnir/dashboard-nvim",
+			event = "VimEnter",
+			cond = firenvim_not_active,
+			config = [[require('config.dashboard-nvim')]],
+		})
 
-    -- telescope
-    use {'nvim-telescope/telescope.nvim',
-      tag = '0.1.0',
-      config = [[require('config.telescope')]],
-      requires = { {'nvim-lua/plenary.nvim'} }
-    }
-    
-    use {
-      "lukas-reineke/indent-blankline.nvim",
-      event = "VimEnter",
-      config = [[require('config.indent-blankline')]],
-    }
+		-- telescope
+		use({
+			"nvim-telescope/telescope.nvim",
+			tag = "0.1.0",
+			config = [[require('config.telescope')]],
+			requires = { { "nvim-lua/plenary.nvim" } },
+		})
 
-    -- Highlight URLs inside vim
-    use { "itchyny/vim-highlighturl", event = "VimEnter" }
+		-- lsp code formatting
+		use({ "jose-elias-alvarez/null-ls.nvim", config = [[require('config.null-ls')]] })
 
-    -- notification plugin
-    use {
-      "rcarriga/nvim-notify",
-      event = "BufEnter",
-      config = function()
-        vim.defer_fn(function()
-          require("config.nvim-notify")
-        end, 2000)
-      end,
-    }
+		use({
+			"lukas-reineke/indent-blankline.nvim",
+			event = "VimEnter",
+			config = [[require('config.indent-blankline')]],
+		})
 
-    -- Only install these plugins if ctags are installed on the system
-    if utils.executable("ctags") then
-      -- show file tags in vim window
-      use { "liuchengxu/vista.vim", cmd = "Vista" }
-    end
+		-- Highlight URLs inside vim
+		use({ "itchyny/vim-highlighturl", event = "VimEnter" })
 
-    -- Automatic insertion and deletion of a pair of characters
-    use { "Raimondi/delimitMate", event = "InsertEnter" }
+		-- notification plugin
+		use({
+			"rcarriga/nvim-notify",
+			event = "BufEnter",
+			config = function()
+				vim.defer_fn(function()
+					require("config.nvim-notify")
+				end, 2000)
+			end,
+		})
 
-    -- Comment plugin
-    use { "tpope/vim-commentary", event = "VimEnter" }
+		-- Only install these plugins if ctags are installed on the system
+		if utils.executable("ctags") then
+			-- show file tags in vim window
+			use({ "liuchengxu/vista.vim", cmd = "Vista" })
+		end
 
-    -- better UI for some nvim actions
-    use {'stevearc/dressing.nvim'}
+		-- Automatic insertion and deletion of a pair of characters
+		use({ "Raimondi/delimitMate", event = "InsertEnter" })
 
-    -- Manage your yank history
-    use({
-      "gbprod/yanky.nvim",
-      config = [[require('config.yanky')]]
-    })
+		-- Comment plugin
+		use({ "tpope/vim-commentary", event = "VimEnter" })
 
-    -- Handy unix command inside Vim (Rename, Move etc.)
-    use { "tpope/vim-eunuch", cmd = { "Rename", "Delete" } }
+		-- better UI for some nvim actions
+		use({ "stevearc/dressing.nvim" })
 
-    -- Repeat vim motions
-    use { "tpope/vim-repeat", event = "VimEnter" }
+		-- Manage your yank history
+		use({
+			"gbprod/yanky.nvim",
+			config = [[require('config.yanky')]],
+		})
 
-    use { "nvim-zh/better-escape.vim", event = { "InsertEnter" } }
+		-- Handy unix command inside Vim (Rename, Move etc.)
+		use({ "tpope/vim-eunuch", cmd = { "Rename", "Delete" } })
 
-    use { "Neur1n/neuims", event = { "InsertEnter" } }
+		-- Repeat vim motions
+		use({ "tpope/vim-repeat", event = "VimEnter" })
 
-    -- Auto format tools
-    use { "sbdchd/neoformat", cmd = { "Neoformat" } }
+		use({ "nvim-zh/better-escape.vim", event = { "InsertEnter" } })
 
-    -- Git command inside vim
-    use { "tpope/vim-fugitive", event = "User InGitRepo", config = [[require('config.fugitive')]] }
+		use({ "Neur1n/neuims", event = { "InsertEnter" } })
 
-    -- Better git log display
-    use { "rbong/vim-flog", requires = "tpope/vim-fugitive", cmd = { "Flog" } }
+		-- Auto format tools
+		use({ "sbdchd/neoformat", cmd = { "Neoformat" } })
 
-    use { "christoomey/vim-conflicted", requires = "tpope/vim-fugitive", cmd = { "Conflicted" } }
+		-- Git command inside vim
+		use({ "tpope/vim-fugitive", event = "User InGitRepo", config = [[require('config.fugitive')]] })
 
-    use {
-      "ruifm/gitlinker.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      event = "User InGitRepo",
-      config = [[require('config.git-linker')]],
-    }
+		-- Better git log display
+		use({ "rbong/vim-flog", requires = "tpope/vim-fugitive", cmd = { "Flog" } })
 
-    -- Show git change (change, delete, add) signs in vim sign column
-    use { "lewis6991/gitsigns.nvim", config = [[require('config.gitsigns')]] }
+		use({ "christoomey/vim-conflicted", requires = "tpope/vim-fugitive", cmd = { "Conflicted" } })
 
-    -- Better git commit experience
-    use { "rhysd/committia.vim", opt = true, setup = [[vim.cmd('packadd committia.vim')]] }
+		use({
+			"ruifm/gitlinker.nvim",
+			requires = "nvim-lua/plenary.nvim",
+			event = "User InGitRepo",
+			config = [[require('config.git-linker')]],
+		})
 
-    use { "kevinhwang91/nvim-bqf", ft = "qf", config = [[require('config.bqf')]] }
+		-- Better git commit experience
+		use({ "rhysd/committia.vim", opt = true, setup = [[vim.cmd('packadd committia.vim')]] })
 
-    -- Another markdown plugin
-    use { "preservim/vim-markdown", ft = { "markdown" } }
+		use({ "kevinhwang91/nvim-bqf", ft = "qf", config = [[require('config.bqf')]] })
 
-    -- Vim tabular plugin for manipulate tabular, required by markdown plugins
-    use { "godlygeek/tabular", cmd = { "Tabularize" } }
+		-- Another markdown plugin
+		use({ "preservim/vim-markdown", ft = { "markdown" } })
 
-    -- Markdown previewing
-    use {
-        "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install",
-        ft = { "markdown" },
-    }
+		use({ "folke/zen-mode.nvim", cmd = "ZenMode", config = [[require('config.zen-mode')]] })
 
-    use { "folke/zen-mode.nvim", cmd = "ZenMode", config = [[require('config.zen-mode')]] }
+		use({ "chrisbra/unicode.vim", event = "VimEnter" })
 
-    use { "chrisbra/unicode.vim", event = "VimEnter" }
+		-- Additional powerful text object for vim, this plugin should be studied
+		-- carefully to use its full power
+		use({ "wellle/targets.vim", event = "VimEnter" })
 
-    -- Additional powerful text object for vim, this plugin should be studied
-    -- carefully to use its full power
-    use { "wellle/targets.vim", event = "VimEnter" }
+		-- Plugin to manipulate character pairs quickly
+		use({ "machakann/vim-sandwich", event = "VimEnter" })
 
-    -- Plugin to manipulate character pairs quickly
-    use { "machakann/vim-sandwich", event = "VimEnter" }
+		-- Add indent object for vim (useful for languages like Python)
+		use({ "michaeljsmith/vim-indent-object", event = "VimEnter" })
 
-    -- Add indent object for vim (useful for languages like Python)
-    use { "michaeljsmith/vim-indent-object", event = "VimEnter" }
+		if utils.executable("latex") then
+			use({ "lervag/vimtex", ft = { "tex" } })
+		end
 
-    if utils.executable("latex") then
-      use { "lervag/vimtex", ft = { "tex" } }
-    end
+		-- Modern matchit implementation
+		use({ "andymass/vim-matchup", event = "VimEnter" })
 
-    -- Modern matchit implementation
-    use { "andymass/vim-matchup", event = "VimEnter" }
+		use({ "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } })
 
-    use { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } }
+		-- Edit text area in browser using nvim
+		use({
+			"glacambre/firenvim",
+			run = function()
+				fn["firenvim#install"](0)
+			end,
+			opt = true,
+			setup = [[vim.cmd('packadd firenvim')]],
+		})
 
-    -- Edit text area in browser using nvim
-    use {
-        "glacambre/firenvim",
-        run = function()
-          fn["firenvim#install"](0)
-        end,
-        opt = true,
-        setup = [[vim.cmd('packadd firenvim')]],
-    }
+		-- Debugger plugin
+		use({ "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] })
 
-    -- Debugger plugin
-    use { "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] }
+		-- Session management plugin
+		use({ "tpope/vim-obsession", cmd = "Obsession" })
 
-    -- Session management plugin
-    use { "tpope/vim-obsession", cmd = "Obsession" }
+		-- nvim-treesitter
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			event = "BufEnter",
+			run = ":TSUpdate",
+			config = [[require('config.treesitter')]],
+		})
+		-- The missing auto-completion for cmdline!
+		use({ "gelguy/wilder.nvim", opt = true, setup = [[vim.cmd('packadd wilder.nvim')]] })
 
-    -- nvim-treesitter
-    use {
-        "nvim-treesitter/nvim-treesitter",
-        event = "BufEnter",
-        run = ":TSUpdate",
-        config = [[require('config.treesitter')]],
-      }
-    -- The missing auto-completion for cmdline!
-    use { "gelguy/wilder.nvim", opt = true, setup = [[vim.cmd('packadd wilder.nvim')]] }
+		-- showing keybindings
+		use({
+			"folke/which-key.nvim",
+			event = "VimEnter",
+			config = function()
+				vim.defer_fn(function()
+					require("config.which-key")
+				end, 2000)
+			end,
+		})
 
-    -- showing keybindings
-    use {
-      "folke/which-key.nvim",
-      event = "VimEnter",
-      config = function()
-        vim.defer_fn(function()
-          require("config.which-key")
-        end, 2000)
-      end,
-    }
+		-- file explorer
+		use({
+			"kyazdani42/nvim-tree.lua",
+			requires = { "kyazdani42/nvim-web-devicons" },
+			config = [[require('config.nvim-tree')]],
+		})
 
-    -- file explorer
-    use {
-      "kyazdani42/nvim-tree.lua",
-      requires = { "kyazdani42/nvim-web-devicons" },
-      config = [[require('config.nvim-tree')]],
-    }
-
-    use { "ii14/emmylua-nvim", ft = "lua" }
-
-    use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] }
-        end,
-        config = {
-        max_jobs = 16,
-        compile_path = packer_util.join_paths(fn.stdpath("data"), "site", "lua", "packer_compiled.lua"),
-       },
-    }
+		use({ "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] })
+	end,
+	config = {
+		max_jobs = 16,
+		compile_path = packer_util.join_paths(fn.stdpath("data"), "site", "lua", "packer_compiled.lua"),
+	},
+})
 
 -- For fresh install, we need to install plugins. Otherwise, we just need to require `packer_compiled.lua`.
 if fresh_install then
-  -- We run packer.sync() here, because only after packer.startup, can we know which plugins to install.
-  -- So plugin installation should be done after the startup process.
-  packer.sync()
+	-- We run packer.sync() here, because only after packer.startup, can we know which plugins to install.
+	-- So plugin installation should be done after the startup process.
+	packer.sync()
 else
-  local status, _ = pcall(require, "packer_compiled")
-  if not status then
-    local msg = "File packer_compiled.lua not found: run PackerSync to fix!"
-    vim.notify(msg, vim.log.levels.ERROR, { title = "nvim-config" })
-  end
+	local status, _ = pcall(require, "packer_compiled")
+	if not status then
+		local msg = "File packer_compiled.lua not found: run PackerSync to fix!"
+		vim.notify(msg, vim.log.levels.ERROR, { title = "nvim-config" })
+	end
 end
 
 -- Auto-generate packer_compiled.lua file
 api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = "*/nvim/lua/plugins.lua",
-  group = api.nvim_create_augroup("packer_auto_compile", { clear = true }),
-  callback = function(ctx)
-    local cmd = "source " .. ctx.file
-    vim.cmd(cmd)
-    vim.cmd("PackerCompile")
-    vim.notify("PackerCompile done!", vim.log.levels.INFO, { title = "Nvim-config" })
-  end,
+	pattern = "*/nvim/lua/plugins.lua",
+	group = api.nvim_create_augroup("packer_auto_compile", { clear = true }),
+	callback = function(ctx)
+		local cmd = "source " .. ctx.file
+		vim.cmd(cmd)
+		vim.cmd("PackerCompile")
+		vim.notify("PackerCompile done!", vim.log.levels.INFO, { title = "Nvim-config" })
+	end,
 })
