@@ -26,15 +26,6 @@ function! s:log(message)
         \ '>> /tmp/vim_log_autocommands'
 endfunction
 
-" These are deliberately left out due to side effects
-" - SourceCmd
-" - FileAppendCmd
-" - FileWriteCmd
-" - BufWriteCmd
-" - FileReadCmd
-" - BufReadCmd
-" - FuncUndefined
-
 let s:aulist = [
       \ 'BufNewFile',
       \ 'BufReadPre',
