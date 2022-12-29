@@ -11,10 +11,6 @@ function! buf_utils#GoToBuffer(count, direction) abort
   endif
   " Check the validity of buffer number.
   if index(s:GetBufNums(), a:count) == -1
-    " Using `lua vim.notify('invalid bufnr: ' .. a:count)` won't work, because
-    " we are essentially mixing Lua and vim script. We need to make sure that
-    " args inside vim.notify() are valid vim values. The conversion from vim
-    " value to lua value will be done by Nvim. See also https://github.com/neovim/neovim/pull/11338.
     call v:lua.vim.notify('Invalid bufnr: ' . a:count, 4, {'title': 'nvim-config'})
     return
   endif

@@ -76,8 +76,6 @@ set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
 set autowrite
 
 set title
-set titlestring=
-set titlestring=%{utils#Get_titlestr()}
 
 set undofile
 
