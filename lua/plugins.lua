@@ -36,11 +36,6 @@ vim.cmd("packadd packer.nvim")
 local packer = require("packer")
 local packer_util = require("packer.util")
 
--- check if firenvim is active
-local firenvim_not_active = function()
-	return not vim.g.started_by_firenvim
-end
-
 packer.startup({
 	function(use)
 		-- it is recommended to put impatient.nvim before any other plugins
@@ -176,24 +171,12 @@ packer.startup({
 			config = [[require('config.yanky')]],
 		})
 
-		-- Handy unix command inside Vim (Rename, Move etc.)
-		use({ "tpope/vim-eunuch", cmd = { "Rename", "Delete" } })
-
 		-- Repeat vim motions
 		use({ "tpope/vim-repeat", event = "VimEnter" })
 
 		use({ "nvim-zh/better-escape.vim", event = { "InsertEnter" } })
 
 		use({ "Neur1n/neuims", event = { "InsertEnter" } })
-
-		-- Auto format tools
-		use({ "sbdchd/neoformat", cmd = { "Neoformat" } })
-
-		-- Git command inside vim
-		use({ "tpope/vim-fugitive", event = "User InGitRepo", config = [[require('config.fugitive')]] })
-
-		-- Better git log display
-		use({ "rbong/vim-flog", requires = "tpope/vim-fugitive", cmd = { "Flog" } })
 
 		use({ "christoomey/vim-conflicted", requires = "tpope/vim-fugitive", cmd = { "Conflicted" } })
 
@@ -203,9 +186,6 @@ packer.startup({
 			event = "User InGitRepo",
 			config = [[require('config.git-linker')]],
 		})
-
-		-- Better git commit experience
-		use({ "rhysd/committia.vim", opt = true, setup = [[vim.cmd('packadd committia.vim')]] })
 
 		use({ "kevinhwang91/nvim-bqf", ft = "qf", config = [[require('config.bqf')]] })
 
@@ -226,24 +206,10 @@ packer.startup({
 		-- Add indent object for vim (useful for languages like Python)
 		use({ "michaeljsmith/vim-indent-object", event = "VimEnter" })
 
-		if utils.executable("latex") then
-			use({ "lervag/vimtex", ft = { "tex" } })
-		end
-
 		-- Modern matchit implementation
 		use({ "andymass/vim-matchup", event = "VimEnter" })
 
 		use({ "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } })
-
-		-- Edit text area in browser using nvim
-		use({
-			"glacambre/firenvim",
-			run = function()
-				fn["firenvim#install"](0)
-			end,
-			opt = true,
-			setup = [[vim.cmd('packadd firenvim')]],
-		})
 
 		-- Debugger plugin
 		use({ "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] })
@@ -260,17 +226,6 @@ packer.startup({
 		})
 		-- The missing auto-completion for cmdline!
 		use({ "gelguy/wilder.nvim", opt = true, setup = [[vim.cmd('packadd wilder.nvim')]] })
-
-		-- showing keybindings
-		use({
-			"folke/which-key.nvim",
-			event = "VimEnter",
-			config = function()
-				vim.defer_fn(function()
-					require("config.which-key")
-				end, 2000)
-			end,
-		})
 
 		-- file explorer
 		use({
