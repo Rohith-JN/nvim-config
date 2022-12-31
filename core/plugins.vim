@@ -22,18 +22,6 @@ nnoremap <silent> <leader>fh :<C-U>Telescope help_tags<CR>
 nnoremap <silent> <leader>fr :<C-U>Telescope oldfiles<CR>
 nnoremap <silent> <leader>fg :<C-U>Telescope live_grep<CR>
 
-""""""""""""""""""""""""""" vista settings """"""""""""""""""""""""""""""""""
-let g:vista#renderer#icons = {
-      \ 'member': '',
-      \ }
-
-" Do not echo message on command line
-let g:vista_echo_cursor = 0
-" Stay in current window when vista window is opened
-let g:vista_stay_on_open = 0
-
-nnoremap <silent> <Space>t :<C-U>Vista!!<CR>
-
 """"""""""""""""""""""""""""better-escape.vim settings"""""""""""""""""""""""""
 let g:better_escape_interval = 200
 
@@ -93,7 +81,6 @@ nnoremap <leader>dp :<C-U>GdbStartPDB python -m pdb %<CR>
 call timer_start(250, { -> s:wilder_init() })
 
 function! s:wilder_init() abort
-  try
     call wilder#setup({
           \ 'modes': [':', '/', '?'],
           \ 'next_key': '<Tab>',
@@ -130,9 +117,6 @@ function! s:wilder_init() abort
           \ 'right': [' ', wilder#popupmenu_scrollbar(),],
           \ 'apply_incsearch_fix': 0,
           \ }))
-  catch /^Vim\%((\a\+)\)\=:E117/
-    echohl Error |echomsg "Wilder.nvim missing: run :PackerSync to fix."|echohl None
-  endtry
 endfunction
 
 """"""""""""""""""""""""""""""vim-auto-save settings""""""""""""""""""""""""""""""

@@ -18,6 +18,8 @@ opt.pastetoggle = "<F12>"
 opt.splitbelow = true
 opt.splitright = true
 
+opt.lazyredraw = true
+
 opt.timeoutlen = 500
 opt.updatetime = 500
 
