@@ -1,7 +1,6 @@
 local keymap = vim.keymap
 local api = vim.api
 local uv = vim.loop
-local utils = require('autoload.utils')
 
 -- Save key strokes (now we do not need to press shift to enter command mode).
 keymap.set({ "n", "x" }, ";", ":")
@@ -127,20 +126,41 @@ keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = 
 -- Copy entire buffer.
 keymap.set("n", "<leader>y", "<cmd>%yank<cr>", { desc = "yank entire buffer" })
 
--- Move current line up and down
-keymap.set("n", "<A-k>", '<cmd>:lua utils.SwitchLine(line("."), "up")<cr>', { desc = "move line up" })
-keymap.set("n", "<A-j>", '<cmd>:lua utils.SwitchLine(line("."), "down")<cr>', { desc = "move line down" })
-
--- Move current visual-line selection up and down
-keymap.set("x", "<A-k>", '<cmd>:lua utils.MoveSelection("up")<cr>', { desc = "move selection up" })
-
-keymap.set("x", "<A-j>", '<cmd>:lua utils.MoveSelection("down")<cr>', { desc = "move selection down" })
-
 keymap.set("x", "p", '"_c<Esc>p')
 
 -- Go to a certain buffer
-keymap.set("n", "gf", '<cmd>:lua utils.GoToBuffer(v:count, "forward")<cr>', {})
-keymap.set("n", "gb", '<cmd>:lua utils.GoToBuffer(v:count, "backward")<cr>', {})
+function GoToBuffer(count, direction)
+	if count == 0 then
+		if direction == "forward" then
+			vim.api.nvim_command("bnext")
+		elseif direction == "backward" then
+			vim.api.nvim_command("bprevious")
+		else
+			vim.api.nvim_err_writeln("Bad argument " .. direction)
+		end
+		return
+	end
+
+	if vim.tbl_index(GetBufNums(), count) == -1 then
+		vim.fn.nvim_notify(string.format("Invalid bufnr: %d", count), 4, { title = "nvim-config" })
+		return
+	end
+
+	if direction == "forward" then
+		vim.api.nvim_command(string.format("buffer%d", count))
+	end
+end
+
+function GetBufNums()
+	local buf_list = {}
+	for _, buf in ipairs(vim.api.nvim_get_buf_info({ buflisted = 1 })) do
+		buf_list[#buf_list + 1] = buf.bufnr
+	end
+	return buf_list
+end
+
+keymap.set("n", "gf", '<cmd>:lua GoToBuffer(vim.v.count, "forward")<cr>', {})
+keymap.set("n", "gb", '<cmd>:lua GoToBuffer(vim.v.count, "backward")<cr>', {})
 
 -- Switch windows
 keymap.set("n", "<left>", "<c-w>h")
