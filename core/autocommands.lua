@@ -33,15 +33,6 @@ autocmd({ "BufReadPost" }, {
     end,
 })
 
-vim.api.nvim_create_augroup("git_repo_check", {})
-autocmd({ "VimEnter", "DirChanged" }, {
-    group = "git_repo_check",
-    pattern = "*",
-    callback = function()
-        vim.api.nvim_exec('call utils#Inside_git_repo()', false)
-    end,
-})
-
 vim.api.nvim_create_augroup("custom_highlight", {})
 autocmd({ "Colorscheme" }, {
     group = "custom_highlight",

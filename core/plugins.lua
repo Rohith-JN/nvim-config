@@ -1,6 +1,5 @@
 local plugins = require('plugins')
-
--- configurations for vim script plugin
+local wilder = require('wilder')
 
 -- Telescope-Settings
 vim.g.Telescope_WildIgnore = {

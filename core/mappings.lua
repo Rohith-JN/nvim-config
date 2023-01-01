@@ -1,6 +1,7 @@
 local keymap = vim.keymap
 local api = vim.api
 local uv = vim.loop
+local utils = require('autoload.utils')
 
 -- Save key strokes (now we do not need to press shift to enter command mode).
 keymap.set({ "n", "x" }, ";", ":")
@@ -49,8 +50,6 @@ keymap.set("n", [[\d]], "<cmd>bprevious <bar> bdelete #<cr>", {
   desc = "delete buffer",
 })
 
--- Insert a blank line below or above current line (do not move the cursor),
--- see https://stackoverflow.com/a/16136133/6064933
 keymap.set("n", "<space>o", "printf('m`%so<ESC>``', v:count1)", {
   expr = true,
   desc = "insert line below",
@@ -129,25 +128,19 @@ keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = 
 keymap.set("n", "<leader>y", "<cmd>%yank<cr>", { desc = "yank entire buffer" })
 
 -- Move current line up and down
-keymap.set("n", "<A-k>", '<cmd>call utils#SwitchLine(line("."), "up")<cr>', { desc = "move line up" })
-keymap.set("n", "<A-j>", '<cmd>call utils#SwitchLine(line("."), "down")<cr>', { desc = "move line down" })
+keymap.set("n", "<A-k>", '<cmd>:lua utils.SwitchLine(line("."), "up")<cr>', { desc = "move line up" })
+keymap.set("n", "<A-j>", '<cmd>:lua utils.SwitchLine(line("."), "down")<cr>', { desc = "move line down" })
 
 -- Move current visual-line selection up and down
-keymap.set("x", "<A-k>", '<cmd>call utils#MoveSelection("up")<cr>', { desc = "move selection up" })
+keymap.set("x", "<A-k>", '<cmd>:lua utils.MoveSelection("up")<cr>', { desc = "move selection up" })
 
-keymap.set("x", "<A-j>", '<cmd>call utils#MoveSelection("down")<cr>', { desc = "move selection down" })
+keymap.set("x", "<A-j>", '<cmd>:lua utils.MoveSelection("down")<cr>', { desc = "move selection down" })
 
--- Replace visual selection with text in register, but not contaminate the register,
--- see also https://stackoverflow.com/q/10723700/6064933.
 keymap.set("x", "p", '"_c<Esc>p')
 
 -- Go to a certain buffer
-keymap.set("n", "gb", '<cmd>call buf_utils#GoToBuffer(v:count, "forward")<cr>', {
-  desc = "go to buffer (forward)",
-})
-keymap.set("n", "gB", '<cmd>call buf_utils#GoToBuffer(v:count, "backward")<cr>', {
-  desc = "go to buffer (backward)",
-})
+keymap.set("n", "gf", '<cmd>:lua utils.GoToBuffer(v:count, "forward")<cr>', {})
+keymap.set("n", "gb", '<cmd>:lua utils.GoToBuffer(v:count, "backward")<cr>', {})
 
 -- Switch windows
 keymap.set("n", "<left>", "<c-w>h")
@@ -180,9 +173,6 @@ local undo_ch = { ",", ".", "!", "?", ";", ":" }
 for _, ch in ipairs(undo_ch) do
   keymap.set("i", ch, ch .. "<c-g>u")
 end
-
--- insert semicolon in the end
-keymap.set("i", "<A-;>", "<Esc>miA;<Esc>`ii")
 
 -- Keep cursor position after yanking
 keymap.set("n", "y", "myy")
