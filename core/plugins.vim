@@ -66,14 +66,6 @@ let g:matchup_delim_noskips = 0
 " Show offscreen match pair in popup window
 let g:matchup_matchparen_offscreen = {'method': 'popup'}
 
-"""""""""""""""""""""""""" asyncrun.vim settings """"""""""""""""""""""""""
-" Automatically open quickfix window of 6 line tall after asyncrun starts
-let g:asyncrun_open = 6
-if g:is_win
-  " Command output encoding for Windows
-  let g:asyncrun_encs = 'gbk'
-endif
-
 """"""""""""""""""""""""""""""nvim-gdb settings""""""""""""""""""""""""""""""
 nnoremap <leader>dp :<C-U>GdbStartPDB python -m pdb %<CR>
 

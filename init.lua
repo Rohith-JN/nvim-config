@@ -14,7 +14,7 @@ local core_conf_files = {
   "options.lua", 
   "autocommands.lua", 
   "mappings.lua", 
-  "plugins.vim", 
+  "plugins.lua", 
   "colorschemes.lua", 
 }
 
