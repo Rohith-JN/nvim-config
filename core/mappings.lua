@@ -39,24 +39,24 @@ keymap.set("n", "]Q", "<cmd>clast<cr>zv", { silent = true, desc = "last qf item"
 
 -- Close location list or quickfix list if they are present, see https://superuser.com/q/355325/736190
 keymap.set("n", [[\x]], "<cmd>windo lclose <bar> cclose <cr>", {
-  silent = true,
-  desc = "close qf and location list",
+    silent = true,
+    desc = "close qf and location list",
 })
 
 -- Delete a buffer, without closing the window, see https://stackoverflow.com/q/4465095/6064933
 keymap.set("n", [[\d]], "<cmd>bprevious <bar> bdelete #<cr>", {
-  silent = true,
-  desc = "delete buffer",
+    silent = true,
+    desc = "delete buffer",
 })
 
 keymap.set("n", "<space>o", "printf('m`%so<ESC>``', v:count1)", {
-  expr = true,
-  desc = "insert line below",
+    expr = true,
+    desc = "insert line below",
 })
 
 keymap.set("n", "<space>O", "printf('m`%sO<ESC>``', v:count1)", {
-  expr = true,
-  desc = "insert line above",
+    expr = true,
+    desc = "insert line above",
 })
 
 -- Move the cursor based on physical lines, not the actual lines.
@@ -80,25 +80,25 @@ keymap.set("x", ">", ">gv")
 
 -- Edit and reload nvim config file quickly
 keymap.set("n", "<leader>ev", "<cmd>tabnew $MYVIMRC <bar> tcd %:h<cr>", {
-  silent = true,
-  desc = "open init.lua",
+    silent = true,
+    desc = "open init.lua",
 })
 
 keymap.set("n", "<leader>sv", function()
-  vim.cmd([[
+    vim.cmd([[
       update $MYVIMRC
       source $MYVIMRC
     ]])
-  vim.notify("Nvim config successfully reloaded!", vim.log.levels.INFO, { title = "nvim-config" })
+    vim.notify("Nvim config successfully reloaded!", vim.log.levels.INFO, { title = "nvim-config" })
 end, {
-  silent = true,
-  desc = "reload init.lua",
+    silent = true,
+    desc = "reload init.lua",
 })
 
 -- Reselect the text that has just been pasted, see also https://stackoverflow.com/a/4317090/6064933.
 keymap.set("n", "<leader>v", "printf('`[%s`]', getregtype()[0])", {
-  expr = true,
-  desc = "reselect last pasted area",
+    expr = true,
+    desc = "reselect last pasted area",
 })
 
 -- Always use very magic mode for searching
@@ -130,34 +130,34 @@ keymap.set("x", "p", '"_c<Esc>p')
 
 -- Go to a certain buffer
 function GoToBuffer(count, direction)
-	if count == 0 then
-		if direction == "forward" then
-			vim.api.nvim_command("bnext")
-		elseif direction == "backward" then
-			vim.api.nvim_command("bprevious")
-		else
-			vim.api.nvim_err_writeln("Bad argument " .. direction)
-		end
-		return
-	end
+    if count == 0 then
+        if direction == "forward" then
+            vim.api.nvim_command("bnext")
+        elseif direction == "backward" then
+            vim.api.nvim_command("bprevious")
+        else
+            vim.api.nvim_err_writeln("Bad argument " .. direction)
+        end
+        return
+    end
 
-	if vim.tbl_index(GetBufNums(), count) == -1 then
-		vim.fn.nvim_notify(string.format("Invalid bufnr: %d", count), 4, { title = "nvim-config" })
-		return
-	end
+    if vim.tbl_index(GetBufNums(), count) == -1 then
+        vim.fn.nvim_notify(string.format("Invalid bufnr: %d", count), 4, { title = "nvim-config" })
+        return
+    end
 
-	if direction == "forward" then
-		vim.api.nvim_command(string.format("buffer%d", count))
-	end
+    if direction == "forward" then
+        vim.api.nvim_command(string.format("buffer%d", count))
+    end
 end
 
 function GetBufNums()
-	local buf_list = {}
-	for _, buf in ipairs(vim.api.nvim_get_buf_info({ buflisted = 1 })) do
-		buf_list[#buf_list + 1] = buf.bufnr
-	end
-	return buf_list
-end
+    local buf_list = {}
+    for _, buf in ipairs(vim.api.nvim_get_buf_info({ buflisted = 1 })) do
+        buf_list[#buf_list + 1] = buf.bufnr
+    end
+    return buf_list
+end 
 
 keymap.set("n", "gf", '<cmd>:lua GoToBuffer(vim.v.count, "forward")<cr>', {})
 keymap.set("n", "gb", '<cmd>:lua GoToBuffer(vim.v.count, "backward")<cr>', {})
@@ -170,42 +170,42 @@ keymap.set("n", "<Down>", "<C-W>j")
 
 -- Do not move my cursor when joining lines.
 keymap.set("n", "J", function()
-  vim.cmd([[
+    vim.cmd([[
       normal! mzJ`z
       delmarks z
     ]])
 end, {
-  desc = "join line",
+    desc = "join line",
 })
 
 keymap.set("n", "gJ", function()
-  -- we must use `normal!`, otherwise it will trigger recursive mapping
-  vim.cmd([[
+    -- we must use `normal!`, otherwise it will trigger recursive mapping
+    vim.cmd([[
       normal! zmgJ`z
       delmarks z
     ]])
 end, {
-  desc = "join visual lines",
+    desc = "join visual lines",
 })
 
 -- Break inserted text into smaller undo units when we insert some punctuation chars.
 local undo_ch = { ",", ".", "!", "?", ";", ":" }
 for _, ch in ipairs(undo_ch) do
-  keymap.set("i", ch, ch .. "<c-g>u")
+    keymap.set("i", ch, ch .. "<c-g>u")
 end
 
 -- Keep cursor position after yanking
 keymap.set("n", "y", "myy")
 
 api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  group = api.nvim_create_augroup("restore_after_yank", { clear = true }),
-  callback = function()
-    vim.cmd([[
+    pattern = "*",
+    group = api.nvim_create_augroup("restore_after_yank", { clear = true }),
+    callback = function()
+        vim.cmd([[
       silent! normal! `y
       silent! delmarks y
-    ]])
-  end,
+    ]]   )
+    end,
 })
 
 -- Go to the beginning and end of current line in insert mode quickly
@@ -218,22 +218,24 @@ keymap.set("c", "<C-A>", "<HOME>")
 -- Delete the character to the right of the cursor
 keymap.set("i", "<C-D>", "<DEL>")
 
-keymap.set("n", "<leader>cb", function()
-  local cnt = 0
-  local blink_times = 7
-  local timer = uv.new_timer()
+-- in your Lua code
+keymap.set("n", "qq", ":qa!<CR>", { noremap = true, silent = true })
 
-  timer:start(0, 100, vim.schedule_wrap(function()
-    vim.cmd[[
+keymap.set("n", "<leader>cb", function()
+    local cnt = 0
+    local blink_times = 7
+    local timer = uv.new_timer()
+
+    timer:start(0, 100, vim.schedule_wrap(function()
+        vim.cmd [[
       set cursorcolumn!
       set cursorline!
     ]]
 
-    if cnt == blink_times then
-      timer:close()
-    end
+        if cnt == blink_times then
+            timer:close()
+        end
 
-    cnt = cnt + 1
-  end))
+        cnt = cnt + 1
+    end))
 end)
-
