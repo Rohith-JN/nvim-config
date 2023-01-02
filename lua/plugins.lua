@@ -89,7 +89,6 @@ packer.startup({
 			config = [[require('config.hlslens')]],
 		})
 
-		-- A list of colorscheme plugin you may want to try. Find what suits you.
 		use({ "EdenEast/nightfox.nvim", opt = true })
 
 		use({ "kyazdani42/nvim-web-devicons", event = "VimEnter" })
@@ -224,7 +223,6 @@ packer.startup({
 		-- file explorer
 		use({
 			"kyazdani42/nvim-tree.lua",
-			requires = { "kyazdani42/nvim-web-devicons" },
 			config = [[require('config.nvim-tree')]],
 		})
 

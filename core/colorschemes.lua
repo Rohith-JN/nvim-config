@@ -11,7 +11,7 @@ M.colorscheme2dir = {
 }
 
 M.nightfox = function()
-  vim.cmd([[colorscheme duskfox]])
+  vim.cmd([[colorscheme carbonfox]])
 end
 
 --- Use a random colorscheme from the pre-defined list of colorschemes.
