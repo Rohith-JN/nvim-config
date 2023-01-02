@@ -1,5 +1,7 @@
 # Nvim-config
 
+Neovim config for python, lua, react
+
 ## UI Demo
 
 <p align="center">
