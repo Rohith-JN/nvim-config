@@ -126,9 +126,6 @@ packer.startup({
 			requires = { { "nvim-lua/plenary.nvim" } },
 		})
 
-		-- lsp code formatting
-		use({ "jose-elias-alvarez/null-ls.nvim", config = [[require('config.null-ls')]] })
-
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			event = "VimEnter",

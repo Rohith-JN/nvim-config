@@ -237,4 +237,3 @@ keymap.set("n", "<leader>cb", function()
   end))
 end)
 
-keymap.set("n", "<leader>f", ":lua vim.lsp.buf.format()<cr>")
