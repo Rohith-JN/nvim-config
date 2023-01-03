@@ -4,29 +4,17 @@ Neovim config for python, lua, react
 
 ## UI Demo
 
-<p align="center">
-<img src="https://github.com/Rohith-JN/nvim-config/blob/master/view/dashboard.png" width="800">
-</p>
+<img src="https://user-images.githubusercontent.com/78314165/210368303-e3ee80f7-ae7b-44ca-b3b9-165b7b4bd424.png" width="800">
 
-<p align="center">
-<img src="https://github.com/Rohith-JN/nvim-config/blob/master/view/nvim.png" width="800">
-</p>
+<img src="https://user-images.githubusercontent.com/78314165/210368620-6852cfea-532d-40c8-9535-313690f44f7a.png" width="800">
 
-<p align="center">
-<img src="https://github.com/Rohith-JN/nvim-config/blob/master/view/telescope.png" width="800">
-</p>
+<img src="https://user-images.githubusercontent.com/78314165/210368734-b0ad7179-c9bd-41d8-a78c-13b2fdcf272b.png" width="800">
 
-<p align="center">
-<img src="https://github.com/Rohith-JN/nvim-config/blob/master/view/toggleterm.png" width="800">
-</p>
+<img src="https://user-images.githubusercontent.com/78314165/210368783-fde9e2a6-1b71-43a7-a62b-f762f1872f3e.png" width="800">
 
-<p align="center">
-<img src="https://github.com/Rohith-JN/nvim-config/blob/master/view/diagnostics.png" width="800">
-</p>
+<img src="https://user-images.githubusercontent.com/78314165/210368814-7bcedf6e-77b0-41a2-9d98-937991ea4d0e.png" width="800">
 
-<p align="center">
-<img src="https://github.com/Rohith-JN/nvim-config/blob/master/view/nvim-notify.png" width="800">
-</p>
+<img src="https://user-images.githubusercontent.com/78314165/210368856-51df3bf4-af4d-4368-92a0-3feac5ee0b80.png" width="800">
 
 # Features #
 
