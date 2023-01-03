@@ -7,7 +7,7 @@ keymap.set({ "n", "x" }, ";", ":")
 
 -- Turn the word under cursor to upper case
 keymap.set("i", "<c-u>", "<Esc>viwUea")
-
+ 
 -- Turn the current word into title case
 keymap.set("i", "<c-t>", "<Esc>b~lea")
 
@@ -95,15 +95,8 @@ end, {
     desc = "reload init.lua",
 })
 
--- Reselect the text that has just been pasted, see also https://stackoverflow.com/a/4317090/6064933.
-keymap.set("n", "<leader>v", "printf('`[%s`]', getregtype()[0])", {
-    expr = true,
-    desc = "reselect last pasted area",
-})
-
 -- Always use very magic mode for searching
 keymap.set("n", "/", [[/\v]])
-
 -- Search in selected region
 -- xnoremap / :<C-U>call feedkeys('/\%>'.(line("'<")-1).'l\%<'.(line("'>")+1)."l")<CR>
 
@@ -157,7 +150,7 @@ function GetBufNums()
         buf_list[#buf_list + 1] = buf.bufnr
     end
     return buf_list
-end 
+end
 
 keymap.set("n", "gf", '<cmd>:lua GoToBuffer(vim.v.count, "forward")<cr>', {})
 keymap.set("n", "gb", '<cmd>:lua GoToBuffer(vim.v.count, "backward")<cr>', {})
