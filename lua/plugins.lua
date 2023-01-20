@@ -44,8 +44,18 @@ packer.startup({
         use({ "wbthomason/packer.nvim", opt = true })
 
         use({ "onsails/lspkind-nvim", event = "VimEnter" })
+
+        use({ "L3MON4D3/LuaSnip", after = 'nvim-cmp', })
+
         -- auto-completion engine
-        use({ "hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]] })
+        use({ "hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]], requires = { { "saadparwaiz1/cmp_luasnip" } },})
+
+        use({ "saadparwaiz1/cmp_luasnip" })
+
+        use ({
+            "hrsh7th/cmp-nvim-lua",
+            after = "cmp_luasnip",
+        })
 
         -- nvim-cmp completion sources
         use({ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" })
@@ -56,6 +66,8 @@ packer.startup({
         -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
         use({ "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] })
 
+        use({ "rafamadriz/friendly-snippets" })
+
         -- Python indent (follows the PEP8 style)
         use({ "Vimjas/vim-python-pep8-indent", ft = { "python" } })
 
@@ -63,12 +75,6 @@ packer.startup({
         use({ "jeetsukumaran/vim-pythonsense", ft = { "python" } })
 
         use({ "machakann/vim-swap", event = "VimEnter" })
-
-        -- IDE for Lisp
-        if utils.executable("sbcl") then
-            -- use 'kovisoft/slimv'
-            use({ "vlime/vlime", rtp = "vim/", ft = { "lisp" } })
-        end
 
         -- Super fast buffer jump
         use({
