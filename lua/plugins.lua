@@ -45,14 +45,26 @@ packer.startup({
 
         use({ "onsails/lspkind-nvim", event = "VimEnter" })
 
-        use({ "L3MON4D3/LuaSnip", after = 'nvim-cmp', })
+        use({ "L3MON4D3/LuaSnip" })
 
         -- auto-completion engine
-        use({ "hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]], requires = { { "saadparwaiz1/cmp_luasnip" } },})
+        use({
+            "hrsh7th/nvim-cmp",
+            config = [[require('config.nvim-cmp')]],
+            after = "lspkind-nvim",
+            requires = {
+                "saadparwaiz1/cmp_luasnip",
+                "hrsh7th/cmp-nvim-lua",
+                "hrsh7th/cmp-nvim-lsp",
+                "hrsh7th/cmp-path",
+                "hrsh7th/cmp-buffer",
+                "hrsh7th/cmp-omni",
+            },
+        })
 
         use({ "saadparwaiz1/cmp_luasnip" })
 
-        use ({
+        use({
             "hrsh7th/cmp-nvim-lua",
             after = "cmp_luasnip",
         })
