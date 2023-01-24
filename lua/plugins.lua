@@ -45,28 +45,11 @@ packer.startup({
 
         use({ "onsails/lspkind-nvim", event = "VimEnter" })
 
-        use({ "L3MON4D3/LuaSnip" })
-
         -- auto-completion engine
         use({
             "hrsh7th/nvim-cmp",
             config = [[require('config.nvim-cmp')]],
             after = "lspkind-nvim",
-            requires = {
-                "saadparwaiz1/cmp_luasnip",
-                "hrsh7th/cmp-nvim-lua",
-                "hrsh7th/cmp-nvim-lsp",
-                "hrsh7th/cmp-path",
-                "hrsh7th/cmp-buffer",
-                "hrsh7th/cmp-omni",
-            },
-        })
-
-        use({ "saadparwaiz1/cmp_luasnip" })
-
-        use({
-            "hrsh7th/cmp-nvim-lua",
-            after = "cmp_luasnip",
         })
 
         -- nvim-cmp completion sources
@@ -74,11 +57,10 @@ packer.startup({
         use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
         use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
         use({ "hrsh7th/cmp-omni", after = "nvim-cmp" })
+        use({ "quangnguyen30192/cmp-nvim-ultisnips", after = { "nvim-cmp", "ultisnips" } })
 
         -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
         use({ "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] })
-
-        use({ "rafamadriz/friendly-snippets" })
 
         -- Python indent (follows the PEP8 style)
         use({ "Vimjas/vim-python-pep8-indent", ft = { "python" } })
@@ -215,8 +197,14 @@ packer.startup({
         -- Debugger plugin
         use({ "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] })
 
+         -- Snippet engine and snippet template
+        use ({ "SirVer/ultisnips", event = "InsertEnter" })
+        use ({ "honza/vim-snippets", after = "ultisnips" })
+
         -- Session management plugin
         use({ "tpope/vim-obsession", cmd = "Obsession" })
+
+        use { "jdhao/whitespace.nvim", event = "VimEnter" }
 
         -- nvim-treesitter
         use({
