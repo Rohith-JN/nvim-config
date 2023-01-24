@@ -101,9 +101,3 @@ wilder.set_option('renderer', wilder.popupmenu_renderer({
     apply_incsearch_fix = 0,
 }))
 
-vim.g.UltiSnipsExpandTrigger = '<c-j>'
-
-vim.g.UltiSnipsEnableSnipMate = 0
-
-vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
-vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
