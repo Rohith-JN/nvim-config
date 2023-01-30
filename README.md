@@ -16,6 +16,8 @@ Neovim config for python, lua, react
 
 <img src="https://user-images.githubusercontent.com/78314165/210368856-51df3bf4-af4d-4368-92a0-3feac5ee0b80.png" width="800">
 
+<img src="https://user-images.githubusercontent.com/78314165/215419838-ff7b90b0-ce09-4e04-9721-84d7648fbb78.png" width="800">
+
 # Features #
 
 + Plugin management via [Packer.nvim](https://github.com/wbthomason/packer.nvim).
@@ -38,4 +40,5 @@ Neovim config for python, lua, react
 + Animated GUI style notification via [nvim-notify](https://github.com/rcarriga/nvim-notify).
 + Manage multiple terminal windows via [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim).
 + Highly extendable fuzzy finder over lists via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
++ Single tabpage interface for easily cycling through diffs for all modified files via [diffview.nvim](https://github.com/sindrets/diffview.nvim).
 + ......
