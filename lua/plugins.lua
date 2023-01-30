@@ -109,6 +109,9 @@ packer.startup({
             config = [[require('config.bufferline')]],
         })
 
+        -- Packer
+        use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
         -- fancy start screen
         use({
             "glepnir/dashboard-nvim",

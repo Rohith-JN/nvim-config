@@ -1,5 +1,5 @@
 require("nvim-treesitter.configs").setup {
-  ensure_installed = { "python", "lua", "vim", "javascript", "typescript", "scss", "html", "dart", "css" },
+  ensure_installed = { "python", "lua", "rust", "javascript", "typescript", "scss", "dart", "css" },
   auto_install = true,
   ignore_install = {}, -- List of parsers to ignore installing
   highlight = {
