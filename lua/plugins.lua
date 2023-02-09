@@ -112,14 +112,6 @@ packer.startup({
         -- Packer
         use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
-        -- fancy start screen
-        use({
-            "glepnir/dashboard-nvim",
-            event = "VimEnter",
-            cond = firenvim_not_active,
-            config = [[require('config.dashboard-nvim')]],
-        })
-
         -- telescope
         use({
             "nvim-telescope/telescope.nvim",
