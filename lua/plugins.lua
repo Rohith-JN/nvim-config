@@ -91,6 +91,13 @@ packer.startup({
         use({ "EdenEast/nightfox.nvim", opt = true })
 
         use({ "kyazdani42/nvim-web-devicons", event = "VimEnter" })
+        
+        use({
+            "glepnir/dashboard-nvim",
+            event = "VimEnter",
+            cond = firenvim_not_active,
+            config = [[require('config.dashboard')]],
+        })
 
         use({
             "nvim-lualine/lualine.nvim",

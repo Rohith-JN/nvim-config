@@ -125,7 +125,7 @@ else
 end
 
 if utils.executable('lua-language-server') then
-    lspconfig.sumneko_lua.setup {
+    lspconfig.lua_ls.setup {
         on_attach = custom_attach,
         capabilities = capabilities,
         settings = {
