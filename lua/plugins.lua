@@ -92,11 +92,11 @@ packer.startup({
 
         use({ "kyazdani42/nvim-web-devicons", event = "VimEnter" })
 
-        use({
-            "glepnir/dashboard-nvim",
-            event = "VimEnter",
-            cond = firenvim_not_active,
+        use ({
+            'glepnir/dashboard-nvim',
+            event = 'VimEnter',
             config = [[require('config.dashboard')]],
+            requires = {'nvim-tree/nvim-web-devicons'}
         })
 
         use({
