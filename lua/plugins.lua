@@ -91,7 +91,7 @@ packer.startup({
         use({ "EdenEast/nightfox.nvim", opt = true })
 
         use({ "kyazdani42/nvim-web-devicons", event = "VimEnter" })
-        
+
         use({
             "glepnir/dashboard-nvim",
             event = "VimEnter",
@@ -156,12 +156,6 @@ packer.startup({
         -- better UI for some nvim actions
         use({ "stevearc/dressing.nvim" })
 
-        -- Manage your yank history
-        use({
-            "gbprod/yanky.nvim",
-            config = [[require('config.yanky')]],
-        })
-
         -- Repeat vim motions
         use({ "tpope/vim-repeat", event = "VimEnter" })
 
@@ -217,6 +211,9 @@ packer.startup({
         use({
             "kyazdani42/nvim-tree.lua",
             config = [[require('config.nvim-tree')]],
+            requires = {
+                "kyazdani42/nvim-web-devicons", -- optional, for file icons
+            },
         })
 
         use({ "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] })

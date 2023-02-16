@@ -8,9 +8,9 @@ require("toggleterm").setup{
   persist_size = true,
   shade_filetypes = {},
   direction = "float",
-  close_on_exit = true, 
-  shell = vim.o.shell, 
-  auto_scroll = true, 
+  close_on_exit = true,
+  shell = vim.o.shell,
+  auto_scroll = true,
   float_opts = {
     border = 'curved',
     winblend = 0,
