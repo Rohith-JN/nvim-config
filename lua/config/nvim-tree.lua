@@ -7,9 +7,6 @@ nvim_tree.setup {
   hijack_cursor = false,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
-  ignore_buffer_on_setup = false,
-  open_on_setup = false,
-  open_on_setup_file = false,
   open_on_tab = false,
   sort_by = "name",
   update_cwd = false,
@@ -50,7 +47,6 @@ nvim_tree.setup {
     update_cwd = false,
     ignore_list = {},
   },
-  ignore_ft_on_setup = {},
   system_open = {
     cmd = "",
     args = {},
@@ -84,7 +80,7 @@ nvim_tree.setup {
     },
     open_file = {
       quit_on_open = false,
-      resize_window = true,
+      resize_window = false,
       window_picker = {
         enable = true,
         chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
@@ -113,6 +109,7 @@ nvim_tree.setup {
   },
 }
 
-keymap.set("n", "<space>s", function()
-  return require("nvim-tree").toggle(false, true)
-end, { silent = true, desc = "toggle nvim-tree" })
+keymap.set("n", "<space>s", require("nvim-tree.api").tree.toggle, {
+  silent = true,
+  desc = "toggle nvim-tree",
+})

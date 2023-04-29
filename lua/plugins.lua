@@ -161,8 +161,6 @@ packer.startup({
 
         use({ "nvim-zh/better-escape.vim", event = { "InsertEnter" } })
 
-        use({ "Neur1n/neuims", event = { "InsertEnter" } })
-
         use({ "christoomey/vim-conflicted", requires = "tpope/vim-fugitive", cmd = { "Conflicted" } })
 
         use({ "kevinhwang91/nvim-bqf", ft = "qf", config = [[require('config.bqf')]] })
@@ -174,28 +172,11 @@ packer.startup({
 
         use({ "chrisbra/unicode.vim", event = "VimEnter" })
 
-        -- Additional powerful text object for vim, this plugin should be studied
-        -- carefully to use its full power
-        use({ "wellle/targets.vim", event = "VimEnter" })
-
         -- Plugin to manipulate character pairs quickly
         use({ "machakann/vim-sandwich", event = "VimEnter" })
 
-        -- Add indent object for vim (useful for languages like Python)
-        use({ "michaeljsmith/vim-indent-object", event = "VimEnter" })
-
-        -- Modern matchit implementation
-        use({ "andymass/vim-matchup", event = "VimEnter" })
-
-        use({ "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } })
-
         -- Debugger plugin
         use({ "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] })
-
-        -- Session management plugin
-        use({ "tpope/vim-obsession", cmd = "Obsession" })
-
-        use { "jdhao/whitespace.nvim", event = "VimEnter" }
 
         -- nvim-treesitter
         use({
@@ -212,7 +193,7 @@ packer.startup({
             "kyazdani42/nvim-tree.lua",
             config = [[require('config.nvim-tree')]],
             requires = {
-                "kyazdani42/nvim-web-devicons", -- optional, for file icons
+                "nvim-tree/nvim-web-devicons", -- optional, for file icons
             },
         })
 
